@@ -112,6 +112,7 @@ func DoWssRequest(a Adaptor, c *gin.Context, info *common.RelayInfo, requestBody
 }
 
 func doRequest(c *gin.Context, req *http.Request, info *common.RelayInfo) (*http.Response, error) {
+	log.Println("[DEBUG] 请求 Headers:", req.Header)
 	var client *http.Client
 	var err error
 	if proxyURL, ok := info.ChannelSetting["proxy"]; ok {
