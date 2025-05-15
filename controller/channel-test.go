@@ -125,6 +125,11 @@ func testChannel(channel *model.Channel, testModel string) (err error, openAIErr
 	}
 	requestBody := bytes.NewBuffer(jsonData)
 	c.Request.Body = io.NopCloser(requestBody)
+	// ✅ 打印出 headers（将在适配器内部使用这些 headers 构建请求）
+    logHeaders := make(http.Header)
+    _ = adaptor.SetupRequestHeader(c, &logHeaders, info) // 用同样逻辑构建 header
+    common.SysLog(fmt.Sprintf("[DEBUG] outgoing request headers for channel #%d: %+v", channel.Id, logHeaders))
+
 	resp, err := adaptor.DoRequest(c, info, requestBody)
 	if err != nil {
 		return err, nil
