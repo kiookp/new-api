@@ -114,10 +114,12 @@ func (a *Adaptor) SetupRequestHeader(c *gin.Context, header *http.Header, info *
 	channel.SetupApiRequestHeader(info, c, header)
 	if info.ChannelType == common.ChannelTypeAzure {
 		header.Set("api-key", info.ApiKey)
+
 		return nil
 	}
 	if info.ChannelType == common.ChannelTypeOpenAI && "" != info.Organization {
 		header.Set("OpenAI-Organization", info.Organization)
+
 	}
 	if info.RelayMode == constant.RelayModeRealtime {
 		swp := c.Request.Header.Get("Sec-WebSocket-Protocol")
