@@ -18,6 +18,7 @@ import (
 	"github.com/bytedance/gopkg/util/gopool"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
+	"log"
 )
 
 func SetupApiRequestHeader(info *common.RelayInfo, c *gin.Context, req *http.Header) {
@@ -52,6 +53,8 @@ func DoApiRequest(a Adaptor, c *gin.Context, info *common.RelayInfo, requestBody
 		return nil, fmt.Errorf("setup request header failed: %w", err)
 	}
 	// req.Header.Set("User-Agent", "refact-lsp 0.10.19")
+	log.Println("[DEBUG] 发出请求前 Header：", req.Header)
+	Println("[DEBUG] 发出请求前 Header：", req.Header)
 	resp, err := doRequest(c, req, info)
 	if err != nil {
 		return nil, fmt.Errorf("do request failed: %w", err)
@@ -79,6 +82,8 @@ func DoFormRequest(a Adaptor, c *gin.Context, info *common.RelayInfo, requestBod
 		return nil, fmt.Errorf("setup request header failed: %w", err)
 	}
     // req.Header.Set("User-Agent", "refact-lsp 0.10.19")
+    log.Println("[DEBUG] 发出表单请求前 Header：", req.Header)
+    Println("[DEBUG] 发出表单请求前 Header：", req.Header)
 	resp, err := doRequest(c, req, info)
 	if err != nil {
 		return nil, fmt.Errorf("do request failed: %w", err)
